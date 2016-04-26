@@ -6,13 +6,13 @@
 }
 
 .communitySelect {
-	background-image: url("chrome-extension://__MSG_@@extension_id__/images/people.png");
+	background-image: url("chrome-extension://__MSG_@@extension_id__/images/checkmark1.png");
 }
 
 .communityownerSelect {
-	background-image: url("chrome-extension://__MSG_@@extension_id__/images/peoplemark.png");
+	background-image: url("chrome-extension://__MSG_@@extension_id__/images/doublecheckmark.png");
 }
 
 .ownerSelect {
-	background-image: url("chrome-extension://__MSG_@@extension_id__/images/mark.png");
+	background-image: url("chrome-extension://__MSG_@@extension_id__/images/checkmark2.png");
 }

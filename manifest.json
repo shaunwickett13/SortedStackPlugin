@@ -16,6 +16,6 @@
 		"images/*.png"
 	],
 	"icons": {
-		"48": "images/peoplemarkicon.png"
+		"48": "images/icon.png"
 	}
 }
