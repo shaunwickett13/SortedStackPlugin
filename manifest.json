@@ -14,5 +14,8 @@
 	],
 	"web_accessible_resources": [
 		"images/*.png"
-	]
+	],
+	"icons": {
+		"48": "images/peoplemarkicon.png"
+	}
 }
