@@ -1,0 +1,18 @@
+.customIcon {
+	width: 30px;
+	height: 30px;
+	background-size: cover;
+	margin: 0 auto 10px auto;
+}
+
+.communitySelect {
+	background-image: url("chrome-extension://__MSG_@@extension_id__/images/people.png");
+}
+
+.communityownerSelect {
+	background-image: url("chrome-extension://__MSG_@@extension_id__/images/peoplemark.png");
+}
+
+.ownerSelect {
+	background-image: url("chrome-extension://__MSG_@@extension_id__/images/mark.png");
+}
