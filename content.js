@@ -1,3 +1,5 @@
+debugger;
+
 var answers = document.getElementsByClassName("answer");
 
 if (answers.length > 0) {
@@ -60,7 +62,7 @@ function HasOwnerSelected (answerElems, ownerAnswerElem) {
 		var answerDiv = answers[insertLocation].answer;
 		var answerLink = answerDiv.previousSibling;
 
-		var insertAfterElem = answers[insertLocation - 1];
+		var insertAfterElem = answers[insertLocation - 1].answer;
 
 		insertAfterElem.parentNode.insertBefore(answerDiv, insertAfterElem.nextSibling);		
 		insertAfterElem.parentNode.insertBefore(answerLink, insertAfterElem.nextSibling);
