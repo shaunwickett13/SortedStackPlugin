@@ -8,7 +8,7 @@
 				"http://stackoverflow.com/questions/*",
 				"https://stackoverflow.com/questions/*"
 			],
-			"js": ["jquery-2.2.3.min.js", "content.js"],
+			"js": ["content.js"],
 			"css": ["style.css"]
 		}
 	],

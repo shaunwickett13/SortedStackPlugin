@@ -1,43 +1,53 @@
-var $answers = $(".answer");
+var answers = document.getElementsByClassName("answer");
 
-if ($answers.length > 0) {
-	var $ownerSelectedAnswer = $(".answer.accepted-answer");
-	var hasOwnerSelectedAnswer = $ownerSelectedAnswer.length > 0;
+if (answers.length > 0) {
+	var ownerSelectedAnswer = document.getElementsByClassName("answer accepted-answer");
+	var hasOwnerSelectedAnswer = ownerSelectedAnswer.length > 0;
 
 	if (hasOwnerSelectedAnswer){
-		HasOwnerSelected($answers, $ownerSelectedAnswer);
+		HasOwnerSelected(answers, ownerSelectedAnswer[0]);
 	} else {
-		NoOwnerSelected($answers);
+		NoOwnerSelected(answers[0]);
 	}
 }
 
-function HasOwnerSelected ($answers, $ownerAnswer) {
+function HasOwnerSelected (answerElems, ownerAnswerElem) {
 	var answers = [];
 
-	$answers.each(function () {
-		var selected = $(this).hasClass("accepted-answer");
+	for (var i = 0; i < answerElems.length; i++){
+		var answer = answerElems[i];
+		var selected = answer.className.indexOf("accepted-answer") >= 0;
 		answers.push({
-			score: GetVoteCount($(this)),
-			answer: $(this),
+			score: GetVoteCount(answer),
+			answer: answer,
 			ownerSelected: selected
 		});
-	});
+	}
 
 	answers.sort(function (a, b) {
 		return b.score - a.score;
 	});
 
+
 	//we know the default checkmark exists so replace it
-	ReplaceDefaultCheckmark($ownerAnswer);
+	ReplaceDefaultCheckmark(ownerAnswerElem);
 
 	// Check to see if the overall highest score is the owner selected answers
-	if (answers[0].answer.hasClass("accepted-answer")) {
+	if (answers[0].answer.className.indexOf("accepted-answer") >= 0) {
 		//change the check to a person/check
 
-		answers[0].answer.find(".votecell > .vote > .customIcon").removeClass("ownerSelect").addClass("communityownerSelect").attr("title", answers[0].answer.attr("title") + "Also this answer was voted the best by the community.");
+		var iconElem = answers[0].answer.querySelector(".votecell > .vote > .customIcon");
+		iconElem.className = "customIcon communityownerSelect";
+		iconElem.title = iconElem.title + "This answer was also voted best by the community";
 	} else {
-		var $topAnswer = answers[0].answer;
-		$topAnswer.find(".votecell > .vote").append('<span class="customIcon communitySelect" title="This answer was voted the best by the community."></span>');
+		var topAnswer = answers[0].answer;
+		var topAnswerVote = topAnswer.querySelector(".votecell > .vote");
+		
+		var iconSpan = document.createElement("span");
+		iconSpan.className = "customIcon communitySelect";
+		iconSpan.title = "This answer was voted the best by the community.";
+
+		topAnswerVote.appendChild(iconSpan);
 
 		var insertLocation = -1;
 		for (var i = 0; i < answers.length; i++) {
@@ -47,31 +57,45 @@ function HasOwnerSelected ($answers, $ownerAnswer) {
 			}
 		}
 
-		var $answerDiv = answers[insertLocation].answer;
-		var $answerLink = $answerDiv.prev();
+		var answerDiv = answers[insertLocation].answer;
+		var answerLink = answerDiv.previousSibling;
 
-		$answerDiv.remove();
-		$answerLink.remove();
+		var insertAfterElem = answers[insertLocation - 1];
 
-		$(".answer").eq(insertLocation - 1).after($answerDiv);
-		$(".answer").eq(insertLocation - 1).after($answerLink);
+		insertAfterElem.parentNode.insertBefore(answerDiv, insertAfterElem.nextSibling);		
+		insertAfterElem.parentNode.insertBefore(answerLink, insertAfterElem.nextSibling);
 	}
 }
 
-function NoOwnerSelected ($answers) {
+function NoOwnerSelected (answer) {
 	// then they should be sorted already so grab the first and apply icon
-	$answers.first().find(".votecell > .vote").append('<span class="customIcon communitySelect" title="This answer was voted the best by the community."></span>');
+	var topAnswerVote = answer.querySelector(".votecell > .vote");
+
+	var iconSpan = document.createElement("span");
+	iconSpan.className = "customIcon communitySelect";
+	iconSpan.title = "This answer was voted the best by the community.";
+
+	topAnswerVote.appendChild(iconSpan);
 }
 
-function ReplaceDefaultCheckmark($ownerAnswer) {
-	var $oldCheck = $ownerAnswer.find(".votecell > .vote > .vote-accepted-on");
-	var title = $oldCheck.attr("title");
-	$oldCheck.remove();
-	$ownerAnswer.find(".votecell > .vote").append('<span class="customIcon ownerSelect" title="' + title + '"></span>');
+function ReplaceDefaultCheckmark(ownerAnswerElem) {
+	var oldCheck = ownerAnswerElem.querySelector(".votecell > .vote > .vote-accepted-on");
+	var title = oldCheck.title;
+	
+	var oldCheckParent = oldCheck.parentNode;
+	oldCheckParent.removeChild(oldCheck);
+
+	var voteElem = ownerAnswerElem.querySelector(".votecell > .vote")
+
+	var newCheck = document.createElement("span");
+	newCheck.title = title;
+	newCheck.className = "customIcon ownerSelect";
+
+	voteElem.appendChild(newCheck);
 }
 
-function GetVoteCount ($answer) {
-	var stringNum = $answer.find(".votecell .vote [itemprop='upvoteCount']").text();
+function GetVoteCount (answer){
+	var stringNum = answer.querySelector(".votecell .vote [itemprop='upvoteCount'").textContent;
 
 	return parseInt(stringNum, 10);
 }
