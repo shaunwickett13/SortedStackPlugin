@@ -1,9 +1,29 @@
-debugger;
+classes = {
+	answer: "answer",
+	acceptedAnswer: "accepted-answer",
+	me_icon: "customIcon",
+	me_owner: "ownerSelect",
+	me_community: "communitySelect",
+	me_ownercommunity: "communityownerSelect"
+};
 
-var answers = document.getElementsByClassName("answer");
+selectors = {
+	customIcon: ".votecell > .vote > .customIcon",
+	voteDiv: ".votecell > .vote",
+	oldIcon: ".votecell > .vote > .vote-accepted-on",
+	answerScore: ".votecell .vote [itemprop='upvoteCount'"
+};
+
+titles = {
+	owner: "This answer was selected as the best by the asker of the question.",
+	community: "This answer was voted as the best by the community.",
+	ownercommunity: "This answer was selected as the best by the asker of the question, as well as being voted the best answer by the community"
+};
+
+var answers = document.getElementsByClassName(classes.answer);
 
 if (answers.length > 0) {
-	var ownerSelectedAnswer = document.getElementsByClassName("answer accepted-answer");
+	var ownerSelectedAnswer = document.getElementsByClassName(classes.answer + " " + classes.acceptedAnswer);
 	var hasOwnerSelectedAnswer = ownerSelectedAnswer.length > 0;
 
 	if (hasOwnerSelectedAnswer){
@@ -18,7 +38,7 @@ function HasOwnerSelected (answerElems, ownerAnswerElem) {
 
 	for (var i = 0; i < answerElems.length; i++){
 		var answer = answerElems[i];
-		var selected = answer.className.indexOf("accepted-answer") >= 0;
+		var selected = answer.className.indexOf(classes.acceptedAnswer) >= 0;
 		answers.push({
 			score: GetVoteCount(answer),
 			answer: answer,
@@ -35,19 +55,19 @@ function HasOwnerSelected (answerElems, ownerAnswerElem) {
 	ReplaceDefaultCheckmark(ownerAnswerElem);
 
 	// Check to see if the overall highest score is the owner selected answers
-	if (answers[0].answer.className.indexOf("accepted-answer") >= 0) {
+	if (answers[0].answer.className.indexOf(classes.acceptedAnswer) >= 0) {
 		//change the check to a person/check
 
-		var iconElem = answers[0].answer.querySelector(".votecell > .vote > .customIcon");
-		iconElem.className = "customIcon communityownerSelect";
-		iconElem.title = iconElem.title + "This answer was also voted best by the community";
+		var iconElem = answers[0].answer.querySelector(selectors.customIcon);
+		iconElem.className = classes.me_icon + " " + classes.me_ownercommunity;
+		iconElem.title = titles.ownercommunity;
 	} else {
 		var topAnswer = answers[0].answer;
-		var topAnswerVote = topAnswer.querySelector(".votecell > .vote");
+		var topAnswerVote = topAnswer.querySelector(selectors.voteDiv);
 		
 		var iconSpan = document.createElement("span");
-		iconSpan.className = "customIcon communitySelect";
-		iconSpan.title = "This answer was voted the best by the community.";
+		iconSpan.className = classes.me_icon + " " + classes.me_community;
+		iconSpan.title = titles.community;
 
 		topAnswerVote.appendChild(iconSpan);
 
@@ -71,33 +91,33 @@ function HasOwnerSelected (answerElems, ownerAnswerElem) {
 
 function NoOwnerSelected (answer) {
 	// then they should be sorted already so grab the first and apply icon
-	var topAnswerVote = answer.querySelector(".votecell > .vote");
+	var topAnswerVote = answer.querySelector(selectors.voteDiv);
 
 	var iconSpan = document.createElement("span");
-	iconSpan.className = "customIcon communitySelect";
-	iconSpan.title = "This answer was voted the best by the community.";
+	iconSpan.className = classes.me_icon + " " + classes.me_community;
+	iconSpan.title = titles.community;
 
 	topAnswerVote.appendChild(iconSpan);
 }
 
 function ReplaceDefaultCheckmark(ownerAnswerElem) {
-	var oldCheck = ownerAnswerElem.querySelector(".votecell > .vote > .vote-accepted-on");
+	var oldCheck = ownerAnswerElem.querySelector(selectors.oldIcon);
 	var title = oldCheck.title;
 	
 	var oldCheckParent = oldCheck.parentNode;
 	oldCheckParent.removeChild(oldCheck);
 
-	var voteElem = ownerAnswerElem.querySelector(".votecell > .vote")
+	var voteElem = ownerAnswerElem.querySelector(selectors.voteDiv)
 
 	var newCheck = document.createElement("span");
 	newCheck.title = title;
-	newCheck.className = "customIcon ownerSelect";
+	newCheck.className = classes.me_icon + " " + classes.me_owner;
 
 	voteElem.appendChild(newCheck);
 }
 
 function GetVoteCount (answer){
-	var stringNum = answer.querySelector(".votecell .vote [itemprop='upvoteCount'").textContent;
+	var stringNum = answer.querySelector(selectors.answerScore).textContent;
 
 	return parseInt(stringNum, 10);
 }
