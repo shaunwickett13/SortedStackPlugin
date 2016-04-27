@@ -1,9 +1,13 @@
 # SortedStackPlugin
 
 ## Description
-A Google Chrome extension that suppliments stackoverflow.com by marking the highest voted answer by the community with a unique icon, as well as moving this answer to the first place position in the list. With SortedStack, gone are the days of a question owners selected answer with 5 upvotes beating the answer 1264 upvotes for the first answer onscreen.
+A Google Chrome and Firefox extension that supplements stackoverflow.com by marking the highest voted answer by the community with a unique icon, as well as moving this answer to the first place position in the list.
 
-Additonally, if the question owner's selected answer is also the community's highest voted answer, a unique icon is assigned to represent this.
+Normally the person can asking the question can select a single answer as accepted, but often times other answers arise that were too late to the game or the asker didn't like. This extension always places the answers in sorted order by the number of votes the answer received. 
+
+## Download
+Chrome: https://chrome.google.com/webstore/detail/sorted-stack/fpbbollnpcfogjaccdegemhcmpbeglkn
+Firefox: pending...
 
 ## Building From Source
 1. Download all the files. 
