@@ -6,7 +6,8 @@ A Google Chrome and Firefox extension that supplements stackoverflow.com by mark
 Normally the person can asking the question can select a single answer as accepted, but often times other answers arise that were too late to the game or the asker didn't like. This extension always places the answers in sorted order by the number of votes the answer received. 
 
 ## Download
-Chrome: https://chrome.google.com/webstore/detail/sorted-stack/fpbbollnpcfogjaccdegemhcmpbeglkn
+Chrome: [Sorted Stack - Chrome Web Store](https://chrome.google.com/webstore/detail/sorted-stack/fpbbollnpcfogjaccdegemhcmpbeglkn)
+
 Firefox: pending...
 
 ## Building From Source
