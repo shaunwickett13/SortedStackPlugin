@@ -1,0 +1,15 @@
+{
+  "title": "Sorted Stack",
+  "name": "sortedstack",
+  "version": "0.0.1",
+  "description": "Sorts stackoverflow.com answers and puts the highest scored answer first, removing the special treatment the askers selected answer usually gets.",
+  "main": "index.js",
+  "author": "Shaun Wickett",
+  "engines": {
+    "firefox": ">=38.0a1"
+  },
+  "license": "MIT",
+  "keywords": [
+    "jetpack"
+  ]
+}
