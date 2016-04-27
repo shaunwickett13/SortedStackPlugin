@@ -3,7 +3,7 @@
 ## Description
 A Google Chrome and Firefox extension that supplements stackoverflow.com by marking the highest voted answer by the community with a unique icon, as well as moving this answer to the first place position in the list.
 
-Normally the person can asking the question can select a single answer as accepted, but often times other answers arise that were too late to the game or the asker didn't like. This extension always places the answers in sorted order by the number of votes the answer received. 
+Normally the person can asking the question can select a single answer as accepted, and this acceptted answer will always been the first answer listed, even if it doesn't have the most amount of votes. Often times other answers arise that were too late to the game or the asker didn't like. This extension always places the answers in sorted order by the number of votes the answer received, no matter if the asker selected an answer as accepted or not. 
 
 ## Install
 **Chrome:** [Download](https://chrome.google.com/webstore/detail/sorted-stack/fpbbollnpcfogjaccdegemhcmpbeglkn)
